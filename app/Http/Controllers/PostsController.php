@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PostCollection;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Http\Resources\Post as PostResource;
@@ -15,8 +16,10 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate(20);
-        return PostResource::collection($posts);
+        //$posts = Post::paginate(10);
+        $posts = Post::all()->where(['user_id' => auth()->user()->id]);
+        //return PostResource::collection($posts);
+        return new PostCollection($posts);
     }
 
     /**
@@ -32,6 +35,7 @@ class PostsController extends Controller
         $post->id = $request->input('post_id');
         $post->title = $request->input('title');
         $post->body = $request->input('body');
+        $post->category_id = $request->input('category_id');
 
         if ($post->save()) {
             return new PostResource($post);

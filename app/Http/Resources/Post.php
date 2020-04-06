@@ -19,12 +19,16 @@ class Post extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'body' => $this->body,
+            'category_id' => $this->category_id,
+            'category_name' => $this->category->name
         ];
     }
 
     public function with($request)
     {
         return [
+            'code' => 16002000,
+            'message'  => 'success',
             'version' => '1.0.0',
             'author_url' => url('https://kongkannika.wordpress.com'),
         ];

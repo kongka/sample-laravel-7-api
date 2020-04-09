@@ -17,7 +17,7 @@ class PostsController extends Controller
     public function index()
     {
         //$posts = Post::paginate(10);
-        $posts = Post::all()->where(['user_id' => auth()->user()->id]);
+        $posts = Post::all();
         //return PostResource::collection($posts);
         return new PostCollection($posts);
     }
